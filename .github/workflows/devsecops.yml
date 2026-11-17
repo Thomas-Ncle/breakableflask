@@ -5,6 +5,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Debug
+        run: |
+          pwd
+          ls -la
+          cat requirements.txt
+
       - name: Dependances
         run: |
           docker run --rm -v "$PWD":/project aquasec/trivy:latest \
@@ -15,6 +22,7 @@ jobs:
     needs: Dependances
     steps:
       - uses: actions/checkout@v4
+
       - name: Test Dockerfile
         run: |
           docker run --rm -v "$PWD":/project aquasec/trivy:latest \
